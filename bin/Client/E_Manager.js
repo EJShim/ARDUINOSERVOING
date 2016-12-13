@@ -103,6 +103,10 @@ E_Manager.prototype.RunRegistration = function(centerX, centerY, pointX, pointY)
     this.SocketMgr().EmitData("SIGNAL_LOOKUP", yerr/10);
   }
 
+  if(xerr > -errorRange && xerr < errorRange && yerr > -errorRange && yerr < errorRange){
+    this.SocketMgr().EmitData("SIGNAL_STOP", null);
+  }
+
   document.getElementById("log").innerHTML = xerr + ", " + yerr;
 }
 

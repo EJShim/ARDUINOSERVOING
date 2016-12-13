@@ -49,6 +49,10 @@ ES_SocketManager.prototype.HandleSignal = function()
       that.Mgr.ArduinoMgr().OnLookRight(speed);
     });
 
+    socket.on("SIGNAL_STOP", function(){
+      that.Mgr.ArduinoMgr().OnStop();
+    });
+
     socket.on("SIGNAL_INITIALIZE", function(){
       that.Mgr.ArduinoMgr().InitMotor();
     });
