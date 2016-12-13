@@ -335,24 +335,28 @@ E_Manager.prototype.OnKeyUp = function(event)
 
 E_Manager.prototype.RunRegistration = function(centerX, centerY, pointX, pointY)
 {
+  var width = this.ImageMgr().canvas.width;
+  var height = this.ImageMgr().canvas.height;
+
   var xerr = centerX - pointX;
   var yerr = centerY - pointY;
 
   var errorRange = 10;
   if(xerr < -errorRange){
     //move left
-    this.SocketMgr().EmitData("SIGNAL_LOOKRIGHT", xerr/10);
+    this.SocketMgr().EmitData("SIGNAL_LOOKRIGHT", xerr/width);
   }else if(xerr > errorRange){
     //move right
-    this.SocketMgr().EmitData("SIGNAL_LOOKLEFT", xerr/10);
+    this.SocketMgr().EmitData("SIGNAL_LOOKLEFT", xerr/width);
   }
 
   if(yerr < -errorRange){
     //move down
-    this.SocketMgr().EmitData("SIGNAL_LOOKDOWN", yerr/10);
+    this.SocketMgr().EmitData("SIGNAL_LOOKDOWN", yerr/height);
   }else if(yerr > errorRange){
-    this.SocketMgr().EmitData("SIGNAL_LOOKUP", yerr/10);
+    this.SocketMgr().EmitData("SIGNAL_LOOKUP", yerr/height);
   }
+
 
   if(xerr > -errorRange && xerr < errorRange && yerr > -errorRange && yerr < errorRange){
     this.SocketMgr().EmitData("SIGNAL_STOP", null);

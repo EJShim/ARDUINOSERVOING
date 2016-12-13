@@ -46,7 +46,7 @@ ES_ArduinoManager.prototype.OnLookDown = function(speed)
   if(!this.Initialized) return;
 
   console.log(speed);
-  this.wheels.Vertical.cw(-0.1);
+  this.wheels.Vertical.step(speed);
 }
 
 ES_ArduinoManager.prototype.OnLookUp = function(speed)
@@ -54,7 +54,7 @@ ES_ArduinoManager.prototype.OnLookUp = function(speed)
   if(!this.Initialized) return;
 
   console.log(speed);
-  this.wheels.Vertical.cw(0.1);
+  this.wheels.Vertical.step(speed);
 }
 
 ES_ArduinoManager.prototype.OnLookRight = function(speed)
@@ -62,7 +62,7 @@ ES_ArduinoManager.prototype.OnLookRight = function(speed)
   if(!this.Initialized) return;
 
   console.log(speed);
-  this.wheels.Horizontal.cw(-0.1);
+  this.wheels.Horizontal.step(speed);
 }
 
 ES_ArduinoManager.prototype.OnLookLeft = function(speed)
@@ -70,7 +70,7 @@ ES_ArduinoManager.prototype.OnLookLeft = function(speed)
   if(!this.Initialized) return;
 
   console.log(speed);
-  this.wheels.Horizontal.cw(0.1);
+  this.wheels.Horizontal.step(speed);
 }
 
 ES_ArduinoManager.prototype.OnStop = function()
@@ -78,8 +78,8 @@ ES_ArduinoManager.prototype.OnStop = function()
   if(!this.Initialized) return;
 
   console.log("Stop Servoing");
-  this.wheels.Horizontal.stop();
-  this.wheels.Vertical.stop();
+  // this.wheels.Horizontal.stop();
+  // this.wheels.Vertical.stop();
 }
 
 
