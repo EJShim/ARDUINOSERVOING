@@ -2,6 +2,7 @@
 function ES_SocketManager(Mgr, server)
 {
   this.Mgr = Mgr;
+  this.firstSocket = null;
 
   //Initialize WebSocket
   var m_io = require('socket.io').listen(server, {'forceNew':true });
@@ -25,13 +26,25 @@ ES_SocketManager.prototype.HandleSignal = function()
 {
   var io = this.IO();
   var that = this;
+  var firstSocket = null
 
 
 
   io.sockets.on('connection', function(socket){
     //Initialize Chat
     console.log("New Connection!!");
-    console.log(socket.handshake.address);
+
+    if(socket.handshake.address == "::1"){
+      console.log("server-side");
+      firstSocket = socket;
+      socket.emit("SIGNAL_INIT_SERVER");
+
+    }else{
+      console.log("not a server-sdie");
+
+      socket.emit("SIGNAL_INIT_CLIENT");
+
+    }
 
     socket.on("SIGNAL_LOOKUP", function(speed){
       that.Mgr.ArduinoMgr().OnLookUp(speed);
@@ -55,6 +68,17 @@ ES_SocketManager.prototype.HandleSignal = function()
 
     socket.on("SIGNAL_INITIALIZE", function(){
       that.Mgr.ArduinoMgr().InitMotor();
+    });
+
+    socket.on("SIGNAL_CANVASDATA", function(data){
+      socket.broadcast.emit('SIGNAL_CANVASDATA', data);
+    })
+
+    socket.on("SIGNAL_CLICKCANVAS", function(data){
+      //Get Click Event from client
+      if(firstSocket !== null){
+        firstSocket.emit("SIGNAL_CLICKCANVAS", data);
+      }
     });
 
 

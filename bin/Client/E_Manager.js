@@ -10,6 +10,8 @@ function E_Manager()
 
   var interactor = new E_Interactor(this);
 
+  this.m_bIsServer = false;
+
 
   this.SocketMgr = function(){
     return socketMgr;
@@ -38,7 +40,9 @@ E_Manager.prototype.Animate = function()
 
   //Update Interactor
   this.Interactor().Update();
-  this.ImageMgr().Update();
+
+  if(this.m_bIsServer)
+    this.ImageMgr().Update();
 
   requestAnimationFrame( this.Animate.bind(this) );
 }
