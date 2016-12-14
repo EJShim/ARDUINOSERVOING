@@ -207,7 +207,6 @@ E_ImageManager.prototype.OnClickCanvas = function(e)
       this.curr_xy[0] = canvasX;
       this.curr_xy[1] = canvasY;
     }else{
-      console.log("canvas clicked");
       this.Mgr.SocketMgr().EmitData("SIGNAL_CLICKCANVAS", JSON.stringify({x:canvasX, y:canvasY}) );
     }
 
@@ -216,8 +215,6 @@ E_ImageManager.prototype.OnClickCanvas = function(e)
 
 E_ImageManager.prototype.OnReceiveClickData = function(data){
   var data = JSON.parse(data);
-
-  console.log("received");
 
   this.curr_xy[0] = data.x;
   this.curr_xy[1] = data.y;
@@ -442,13 +439,11 @@ E_SocketManager.prototype.HandleSignals = function()
   socket.on("SIGNAL_INIT_SERVER", function(data){
     document.getElementById("title").innerHTML = "SERVER-SIDE (WEBRTC GENERATED)";
     Mgr.m_bIsServer = true;
-    console.log("Server Side");
   });
 
   socket.on("SIGNAL_INIT_CLIENT", function(data){
     document.getElementById("title").innerHTML = "CLIENT_SIDE (CANVAS DATA STREAMED)";
     Mgr.m_bIsServer = false;
-    console.log("Client-side");
   });
 
   socket.on("SIGNAL_CANVASDATA", function(data){
