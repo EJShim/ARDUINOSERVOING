@@ -19,12 +19,10 @@ E_SocketManager.prototype.HandleSignals = function()
   var Mgr = this.Mgr;
 
   socket.on("SIGNAL_INIT_SERVER", function(data){
-    document.getElementById("title").innerHTML = "SERVER-SIDE (WEBRTC GENERATED)";
     Mgr.m_bIsServer = true;
   });
 
   socket.on("SIGNAL_INIT_CLIENT", function(data){
-    document.getElementById("title").innerHTML = "CLIENT_SIDE (CANVAS DATA STREAMED)";
     Mgr.m_bIsServer = false;
   });
 

@@ -5,7 +5,6 @@ function ES_ArduinoManager(Mgr)
   this.Mgr = Mgr;
   this.wheels = {};
 
-
   this.initialized = false;
   this.Initialize();
 }
@@ -16,9 +15,6 @@ ES_ArduinoManager.prototype.Initialize = function()
   var board = new five.Board();
 
   board.on("ready", function() {
-    var led = new five.Led(13);
-    led.blink(500); // on off every second
-
     that.InitMotor();
   });
 }
